@@ -4,7 +4,7 @@ export function validateTag(v: string) {
   return (
     v === '' ||
     validTagPattern.test(v) ||
-    'Tag must either be an id (#example), a class (.example), or an HTML element (button)'
+    'Tag must either be an id (#example), a class (.example)'
   );
 }
 
