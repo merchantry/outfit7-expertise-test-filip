@@ -9,16 +9,31 @@ export async function getEventById(projectId: string, eventId: string) {
   return api.get<Event>(`projects/${projectId}/events/${eventId}`);
 }
 
-export async function createEvent(projectId: string, event: Omit<Event, 'id'>) {
-  return api.post<Event>(`projects/${projectId}/events`, event);
+export async function createEvent(
+  projectId: string,
+  event: Omit<Event, 'id'>,
+  countryCode?: string
+) {
+  return api.post<Event>(
+    `projects/${projectId}/events${
+      countryCode ? `?countryCode=${countryCode}` : ''
+    }`,
+    event
+  );
 }
 
 export async function updateEvent(
   projectId: string,
   eventId: string,
-  event: Partial<Event>
+  event: Partial<Event>,
+  countryCode?: string
 ) {
-  return api.patch<Event>(`projects/${projectId}/events/${eventId}`, event);
+  return api.patch<Event>(
+    `projects/${projectId}/events/${eventId}${
+      countryCode ? `?countryCode=${countryCode}` : ''
+    }`,
+    event
+  );
 }
 
 export async function deleteEvent(projectId: string, eventId: string) {

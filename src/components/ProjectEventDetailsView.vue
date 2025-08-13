@@ -84,7 +84,11 @@ async function saveEvent() {
   if (!event.value) return;
 
   if (isNewEvent.value) {
-    event.value = await createEvent(props.projectId, event.value);
+    event.value = await createEvent(
+      props.projectId,
+      event.value,
+      ipData?.countryCode
+    );
 
     router.push({
       name: 'project-event-details',
@@ -94,7 +98,8 @@ async function saveEvent() {
     event.value = await updateEvent(
       props.projectId,
       props.eventId,
-      event.value
+      event.value,
+      ipData?.countryCode
     );
   }
 
