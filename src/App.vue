@@ -1,30 +1,36 @@
+<script setup lang="ts">
+import { provide, ref } from 'vue';
+import { getCountryCode, getPublicIp } from './api/external/routes';
+import { getAdsPermission } from './api/routes/adsPermission';
+import DashboardLayout from './layouts/DashboardLayout.vue';
+import { IP_DATA_KEY } from './services/context/keys';
+import { IpData } from './types';
+
+const ipData = ref<IpData>({
+  ip: '',
+  countryCode: '',
+  adsPermission: false,
+});
+
+async function init() {
+  const ip = await getPublicIp();
+  const countryCode = await getCountryCode(ip);
+  const adsPermission = await getAdsPermission(countryCode);
+
+  ipData.value = {
+    ip,
+    countryCode,
+    adsPermission,
+  };
+}
+
+provide(IP_DATA_KEY, ipData);
+
+init();
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <DashboardLayout>
+    <router-view />
+  </DashboardLayout>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
