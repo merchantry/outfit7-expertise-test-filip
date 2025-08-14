@@ -1,11 +1,9 @@
-import { RouteLocationNormalized } from 'vue-router';
-
 export function isNewRoute(routeId: string | undefined) {
   return routeId === 'new';
 }
 
 export function getRouteQuery(
-  route: RouteLocationNormalized,
+  route: { query: Record<string, string> },
   queryName: string
 ) {
   if (!route || !route.query || !(queryName in route.query)) return undefined;

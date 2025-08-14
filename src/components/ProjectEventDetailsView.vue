@@ -20,7 +20,7 @@ import BaseCardActions from './BaseCardActions.vue';
 import BaseButton from './BaseButton.vue';
 import ChipsList from './ChipsList.vue';
 import SubtitleNote from './SubtitleNote.vue';
-import { IP_DATA_KEY } from '@/services/context/keys';
+import { IP_DATA_KEY } from '@/context/keys';
 
 const router = useRouter();
 const ipData = inject<IpData>(IP_DATA_KEY);

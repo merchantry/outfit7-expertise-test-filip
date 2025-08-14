@@ -30,6 +30,13 @@ const {
   if (!projectId.value) return [];
   return getEvents(projectId.value);
 });
+
+function getItemLink(item: Event) {
+  if (page.value === 'project-event-logs')
+    return `/projects/${projectId.value}/events/${item.id}/logs`;
+
+  return `/projects/${projectId.value}/events/${item.id}`;
+}
 </script>
 
 <template>
@@ -37,12 +44,7 @@ const {
     <ResourcesList
       title="Events"
       :data="events"
-      :getItemLink="(item: Event) => {
-
-        if (page === 'project-event-logs') return `/projects/${projectId}/events/${item.id}/logs`;
-
-        return `/projects/${projectId}/events/${item.id}`;
-      }"
+      :getItemLink="getItemLink"
       :newItemLink="`/projects/${projectId}/events/new`"
     >
       <template #item="{ item }">
