@@ -1,3 +1,3 @@
 export function getScriptElement(apiKey: string) {
-  return `<script src="https://example.com/outfit7_expertise_app_analytics.js?apiKey=${apiKey}"></script>`;
+  return `<script src="http://localhost:8080/analytics_plugin.js?apiKey=${apiKey}"></script>`;
 }
