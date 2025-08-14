@@ -23,7 +23,7 @@ import SubtitleNote from './SubtitleNote.vue';
 import { IP_DATA_KEY } from '@/context/keys';
 
 const router = useRouter();
-const ipData = inject<IpData>(IP_DATA_KEY);
+const ipData = inject<{ value: IpData }>(IP_DATA_KEY);
 
 const props = defineProps<{
   projectId: string;
@@ -59,7 +59,7 @@ const eventTypeOptions = computed(() => {
     { title: 'App', value: 'app' },
   ];
 
-  if (ipData?.adsPermission || event.value?.type === 'ads') {
+  if (ipData?.value.adsPermission || event.value?.type === 'ads') {
     options.push({ title: 'Ads', value: 'ads' });
   }
 
@@ -87,7 +87,7 @@ async function saveEvent() {
     event.value = await createEvent(
       props.projectId,
       event.value,
-      ipData?.countryCode
+      ipData?.value.countryCode
     );
 
     router.push({
@@ -99,7 +99,7 @@ async function saveEvent() {
       props.projectId,
       props.eventId,
       event.value,
-      ipData?.countryCode
+      ipData?.value.countryCode
     );
   }
 
